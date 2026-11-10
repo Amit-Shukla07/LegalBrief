@@ -19,11 +19,11 @@ The application is deployed and actively running in production:
 
 | Component | Platform | Live URL | Description |
 |:---|:---|:---|:---|
-| **Frontend Application** | **Vercel** | [https://legalbrief-web.vercel.app](https://legalbrief-web.vercel.app) | Single Page Application (React 18 + Vite) |
+| **Frontend Application** | **Vercel** | [https://legal-brief-three.vercel.app](https://legal-brief-three.vercel.app) | Single Page Application (React 18 + Vite) |
 | **Backend REST API** | **Render** | [https://legalbrief.onrender.com](https://legalbrief.onrender.com) | Node.js + Express API connected to MongoDB Atlas |
 | **API Base URL** | **Render** | `https://legalbrief.onrender.com/api` | Base path for all authenticated endpoints |
 
-> 💡 **Quick Access:** Open **[legalbrief-web.vercel.app](https://legalbrief-web.vercel.app)** in your browser to test the full live application.
+> 💡 **Quick Access:** Open **[legal-brief-three.vercel.app](https://legal-brief-three.vercel.app)** in your browser to test the full live application.
 
 ---
 
@@ -261,7 +261,7 @@ NODE_ENV=production
 MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/legalbrief?retryWrites=true&w=majority
 JWT_SECRET=your_production_jwt_secret
 JWT_EXPIRES_IN=7d
-CLIENT_URL=https://legalbrief-web.vercel.app
+CLIENT_URL=https://legal-brief-three.vercel.app
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_gmail_app_password
 ```
