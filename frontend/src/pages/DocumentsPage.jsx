@@ -102,10 +102,10 @@ const DocumentsPage = () => {
     setUploading(true);
     const formData = new FormData();
     formData.append("caseId", caseId);
-    formData.append("document", file);
+    formData.append("file", file);
 
     try {
-      await api.post("/documents/upload", formData, {
+      await api.post("/documents", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setFile(null);
