@@ -1,7 +1,13 @@
 import axios from "axios";
 
+let rawBaseUrl = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
+rawBaseUrl = rawBaseUrl.trim().replace(/\/$/, "");
+if (!rawBaseUrl.endsWith("/api")) {
+  rawBaseUrl += "/api";
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: rawBaseUrl,
 });
 
 api.interceptors.request.use((config) => {
@@ -17,12 +23,16 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // If there is no response (e.g., server is down) or we get 401 Unauthorized
-    if (!error.response || error.response.status === 401) {
+    const isAuthPage =
+      window.location.pathname === "/login" || window.location.pathname === "/register";
+
+    // Only redirect to login if user is on a protected route and token expired (401)
+    if (error.response && error.response.status === 401 && !isAuthPage) {
       localStorage.removeItem("lcms_token");
       localStorage.removeItem("lcms_user");
       window.location.href = "/login";
     }
+
     return Promise.reject(error);
   }
 );

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const generateToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
+  jwt.sign({ id }, process.env.JWT_SECRET || "legal_cms_super_secret_jwt_key_2026", {
     expiresIn: process.env.JWT_EXPIRES_IN || "7d",
   });
 
