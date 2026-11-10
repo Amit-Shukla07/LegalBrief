@@ -16,7 +16,18 @@ const CaseDetailModal = ({ caseId, isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [error, setError] = useState("");
 
-  const serverBaseUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:5001";
+  const apiBase = import.meta.env.VITE_API_URL || "";
+  const serverBaseUrl =
+    import.meta.env.VITE_SERVER_URL ||
+    (apiBase ? apiBase.replace(/\/api\/?$/, "") : "http://localhost:5001");
+
+  const getFileHref = (doc) => {
+    const url = doc.fileUrl || doc.filePath || "";
+    if (!url) return "#";
+    if (url.startsWith("http")) return url;
+    const cleanPath = url.replace(/\\/g, "/").replace(/^\//, "");
+    return `${serverBaseUrl}/${cleanPath}`;
+  };
 
   useEffect(() => {
     if (!caseId || !isOpen) {
@@ -274,20 +285,20 @@ const CaseDetailModal = ({ caseId, isOpen, onClose }) => {
                     </thead>
                     <tbody>
                       {docs.map((doc) => {
-                        const fileHref = doc.filePath?.startsWith("http")
-                          ? doc.filePath
-                          : `${serverBaseUrl}/${doc.filePath?.replace(/\\/g, "/")}`;
+                        const fileHref = getFileHref(doc);
+                        const docName = doc.fileName || doc.filename || "Case Document";
+                        const docDate = doc.createdAt || doc.uploadedAt;
                         return (
                           <tr key={doc._id}>
                             <td>
                               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                 <FileIcon size={14} />
-                                <span className="cell-bold">{doc.filename}</span>
+                                <span className="cell-bold">{docName}</span>
                               </div>
                             </td>
                             <td style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
-                              {doc.uploadedAt
-                                ? new Date(doc.uploadedAt).toLocaleDateString("en-US", {
+                              {docDate
+                                ? new Date(docDate).toLocaleDateString("en-US", {
                                     month: "short",
                                     day: "numeric",
                                     year: "numeric",
