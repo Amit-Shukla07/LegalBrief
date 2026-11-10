@@ -35,7 +35,13 @@ const RegisterPage = () => {
       await register(form);
       navigate("/dashboard", { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Please check your information.");
+      if (!err.response) {
+        setError(
+          "Unable to connect to the backend server. If the server is waking up, please wait 30 seconds and retry."
+        );
+      } else {
+        setError(err.response.data?.message || "Registration failed. Please check your information.");
+      }
     } finally {
       setSubmitting(false);
     }

@@ -27,7 +27,13 @@ const LoginPage = () => {
       await login(form);
       navigate(redirectPath, { replace: true });
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid email or password");
+      if (!err.response) {
+        setError(
+          "Unable to connect to the backend server. If the server is waking up, please wait 30 seconds and retry."
+        );
+      } else {
+        setError(err.response.data?.message || "Invalid email or password");
+      }
     } finally {
       setSubmitting(false);
     }
