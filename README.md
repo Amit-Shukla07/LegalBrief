@@ -1,6 +1,8 @@
 # LegalBrief — Legal Case Management SaaS Platform
 
 ![License](https://img.shields.io/badge/license-All%20Rights%20Reserved-red)
+![Frontend](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)
+![Backend](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render)
 ![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green?logo=node.js)
 ![Express](https://img.shields.io/badge/Express.js-4.19-lightgrey?logo=express)
 ![React](https://img.shields.io/badge/React-18-blue?logo=react)
@@ -8,6 +10,20 @@
 ![Vite](https://img.shields.io/badge/Vite-5.4-purple?logo=vite)
 
 A modern, full-stack LegalTech case management SaaS platform designed for law firms and legal practitioners. LegalBrief provides an organized command center to manage clients, legal matters, evidence documents, scheduled court hearings, and chronological activity timelines — secured with JWT authentication and role-based access control (RBAC).
+
+---
+
+## 🌐 Live Deployment Links
+
+The application is deployed and actively running in production:
+
+| Component | Platform | Live URL | Description |
+|:---|:---|:---|:---|
+| **Frontend Application** | **Vercel** | [https://legalbrief-web.vercel.app](https://legalbrief-web.vercel.app) | Single Page Application (React 18 + Vite) |
+| **Backend REST API** | **Render** | [https://legalbrief.onrender.com](https://legalbrief.onrender.com) | Node.js + Express API connected to MongoDB Atlas |
+| **API Base URL** | **Render** | `https://legalbrief.onrender.com/api` | Base path for all authenticated endpoints |
+
+> 💡 **Quick Access:** Open **[legalbrief-web.vercel.app](https://legalbrief-web.vercel.app)** in your browser to test the full live application.
 
 ---
 
@@ -226,6 +242,29 @@ npm run dev
 ```
 
 Visit **`http://localhost:5173`** to access LegalBrief.
+
+---
+
+## Production Deployment Environment Configuration
+
+### Frontend (Vercel)
+In your Vercel Project Settings under **Environment Variables**:
+```env
+VITE_API_URL=https://legalbrief.onrender.com/api
+```
+
+### Backend (Render)
+In your Render Web Service Settings under **Environment Variables**:
+```env
+PORT=5001
+NODE_ENV=production
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/legalbrief?retryWrites=true&w=majority
+JWT_SECRET=your_production_jwt_secret
+JWT_EXPIRES_IN=7d
+CLIENT_URL=https://legalbrief-web.vercel.app
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
+```
 
 ---
 
